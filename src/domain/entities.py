@@ -3,17 +3,7 @@ import enum
 from dataclasses import dataclass, field
 from uuid import UUID, uuid4
 from typing import Any, Dict
-
-
-class DomainError(Exception):
-    """Базовый класс для доменных ошибок"""
-    pass
-
-
-class StateError(DomainError):
-    """Ошибка при переходе состояния ресурса"""
-    pass
-
+from exceptions import StateError
 
 class Status(enum.Enum):
     DRAFT = 'Draft'

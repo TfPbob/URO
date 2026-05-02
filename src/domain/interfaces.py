@@ -21,7 +21,7 @@ class IResourceRepository(ABC):
 
 @dataclass
 class IUnitOfWork(ABC):
-    resource: IResourceRepository
+    resources: IResourceRepository
 
     def __enter__(self):
         return self
