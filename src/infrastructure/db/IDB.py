@@ -21,7 +21,6 @@ class InfrastructureDB:
         return cls._instance
 
     def init_db(self):
-        print(f"Таблицы в метаданных: {Base.metadata.tables.keys()}")
         Base.metadata.create_all(self.engine)
 
     def get_session(self):

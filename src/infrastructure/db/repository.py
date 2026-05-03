@@ -28,6 +28,13 @@ class SQLAlchemyRepository(IResourceRepository):
         else:
             return []
 
+    def update(self, entity: Resource):
+        model = self.session.query(ResourceModel).filter_by(id=entity.id).first()
+        if model:
+            model.status = entity.status
+            model.name = entity.name
+            model.id = entity.id
+            model.resource_metadata = entity.metadata
 
 
 class ResourceMapped:

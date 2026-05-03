@@ -56,7 +56,7 @@ def get_resource(resource_id: UUID, service: ResourceService = Depends(get_resou
     return resource
 
 @app.patch('/resources/{resource_id}/activate')
-def activate_resource(resource_id: UUID, service: ResourceService = Depends(get_resource_service)):
+def activating_resources(resource_id: UUID, service: ResourceService = Depends(get_resource_service)):
     service.activate_resource(resource_id=resource_id)
     return {'message': 'Resource activated successfully'}
 

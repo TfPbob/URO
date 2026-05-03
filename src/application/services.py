@@ -29,6 +29,7 @@ class ResourceService:
             obj = self.uow.resources.get_by_id(resource_id)
             if obj is not None:
                 obj.activate()
+                self.uow.resources.update(obj)
                 self.uow.commit()
             else:
                 self.uow.rollback()

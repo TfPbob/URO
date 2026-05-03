@@ -18,6 +18,10 @@ class IResourceRepository(ABC):
     def list_all(self) -> List[Resource]:
         pass
 
+    @abstractmethod
+    def update(self, eninte: Resource) -> None:
+        pass
+
 
 @dataclass
 class IUnitOfWork(ABC):
