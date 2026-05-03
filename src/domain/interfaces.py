@@ -1,5 +1,5 @@
 from abc import abstractmethod, ABC
-from entities import Resource
+from src.domain.entities import Resource
 from typing import List, Optional
 from uuid import UUID
 from dataclasses import dataclass

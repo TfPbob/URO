@@ -1,11 +1,10 @@
-from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase
+from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase, declarative_base
 from sqlalchemy import JSON, String
 from uuid import UUID, uuid4
 from src.domain.entities import Status
 
 
-class Base(DeclarativeBase):
-    pass
+Base = declarative_base()
 
 
 class ResourceModel(Base):

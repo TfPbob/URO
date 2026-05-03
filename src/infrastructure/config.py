@@ -1,12 +1,18 @@
+import enum
+
 from pydantic import SecretStr
 from pydantic_settings import SettingsConfigDict, BaseSettings
 from src.domain.exceptions import ConfigError
 from pathlib import Path
 
-import os
 
 path_to_env = Path(__file__).parents[2]
 
+
+class ConfigStatus(enum.Enum):
+    local = 'local'
+    test = 'test'
+    prod = 'prod'
 
 class Settings(BaseSettings):
     PROJECT_NAME: str
@@ -33,11 +39,11 @@ class TestConfig:
 
     @property
     def DB_URL_psycopg(self):
-        return 'sqlite:///:memory:'
+        return 'sqlite:///./test.db'
 
     @property
     def DB_URL_asyncpg(self):
-        return 'sqlite:///:memory:'
+        return 'sqlite:///./test.db'
 
 
 class LocalConfig(Settings):
@@ -50,12 +56,12 @@ class ProdConfig(Settings):
     API_KEY: SecretStr
 
 
-def get_config(cfg: str=os.getenv("APP_ENV", "local")):
-    if cfg == 'local':
-        return LocalConfig
-    elif cfg == 'prod':
-        return ProdConfig
-    elif cfg == 'test':
-        return TestConfig
+def get_config(cfg: ConfigStatus):
+    if cfg == ConfigStatus.local:
+        return LocalConfig()
+    elif cfg == ConfigStatus.prod:
+        return ProdConfig()
+    elif cfg == ConfigStatus.test:
+        return TestConfig()
     else:
         raise ConfigError(f'{cfg} не является предусмотренным конфигом')

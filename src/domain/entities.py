@@ -3,7 +3,7 @@ import enum
 from dataclasses import dataclass, field
 from uuid import UUID, uuid4
 from typing import Any, Dict
-from exceptions import StateError
+from src.domain.exceptions import StateError
 
 class Status(enum.Enum):
     DRAFT = 'Draft'
