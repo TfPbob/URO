@@ -65,7 +65,7 @@ def get_list_resources(service: ResourceService = Depends(get_resource_service))
     list_resource = service.list_all_resources()
     return list_resource
 
-@app.patch('/resources/{resource_id')
+@app.patch('/resources/{resource_id}')
 def deactivate_resources(resource_id: UUID, service: ResourceService = Depends(get_resource_service)) -> Dict[str, str]:
     service.deactivate_resource(resource_id=resource_id)
     return {'message': 'Resource deactivated successfully'}
