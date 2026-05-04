@@ -29,4 +29,6 @@ class Resource:
 
     def delete(self):
         """Метод удаления ресурса"""
+        if self.status == Status.DELETED.value:
+            return
         self.status = Status.DELETED.value

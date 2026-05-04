@@ -1,10 +1,9 @@
-from typing import List
 from src.domain.interfaces import IResourceRepository
-from sqlalchemy.orm.session import Session
 from src.domain.entities import Resource
 from src.infrastructure.db.models import ResourceModel
+from sqlalchemy.orm.session import Session
 from uuid import UUID
-
+from typing import List
 
 class SQLAlchemyRepository(IResourceRepository):
     def __init__(self, session: Session):
@@ -45,7 +44,7 @@ class ResourceMapped:
             id=entity.id,
             name=entity.name,
             status=entity.status,
-            metadata=entity.resource_metadata,
+            metadata=entity.resource_metadata
         )
     @staticmethod
     def from_domain(entity: Resource):
@@ -54,5 +53,5 @@ class ResourceMapped:
             id=entity.id,
             name=entity.name,
             status=entity.status,
-            metadata=entity.metadata
+            resource_metadata=entity.metadata
         )

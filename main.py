@@ -9,7 +9,7 @@ from fastapi import FastAPI, Depends, Request
 from fastapi.responses import JSONResponse
 from contextlib import asynccontextmanager
 from uuid import UUID
-from typing import List
+from typing import List, Dict
 
 
 config = ConfigStatus.test
@@ -34,7 +34,7 @@ def get_resource_service(uow = Depends(get_uow)):
     return ResourceService(uow)
 
 @app.exception_handler(ResourceNotFound)
-def resource_not_found_handler(request: Request, exception: ResourceNotFound):
+def resource_not_found_handler(request: Request, exception: ResourceNotFound) -> JSONResponse:
     return JSONResponse(
         status_code=404,
         content={
@@ -56,7 +56,7 @@ def get_resource(resource_id: UUID, service: ResourceService = Depends(get_resou
     return resource
 
 @app.patch('/resources/{resource_id}/activate')
-def activating_resources(resource_id: UUID, service: ResourceService = Depends(get_resource_service)):
+def activating_resources(resource_id: UUID, service: ResourceService = Depends(get_resource_service)) -> Dict[str, str]:
     service.activate_resource(resource_id=resource_id)
     return {'message': 'Resource activated successfully'}
 
@@ -64,3 +64,8 @@ def activating_resources(resource_id: UUID, service: ResourceService = Depends(g
 def get_list_resources(service: ResourceService = Depends(get_resource_service)):
     list_resource = service.list_all_resources()
     return list_resource
+
+@app.patch('/resources/{resource_id')
+def deactivate_resources(resource_id: UUID, service: ResourceService = Depends(get_resource_service)) -> Dict[str, str]:
+    service.deactivate_resource(resource_id=resource_id)
+    return {'message': 'Resource deactivated successfully'}

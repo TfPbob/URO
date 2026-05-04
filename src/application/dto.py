@@ -1,7 +1,7 @@
 from pydantic import BaseModel, Field, ConfigDict
 from typing import Any, Dict
 from uuid import UUID
-#from src.domain.entities import Status
+
 
 class ResourceBaseDTO(BaseModel):
     name: str = Field(min_length=1, max_length=256)

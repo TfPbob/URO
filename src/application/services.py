@@ -14,6 +14,7 @@ class ResourceService:
             resource = Resource(name=name, metadata=metadata)
             self.uow.resources.add(resource)
             self.uow.commit()
+            self.uow.commit()
             return resource
 
     def get_resource(self, resource_id: UUID) -> Resource:
@@ -29,6 +30,17 @@ class ResourceService:
             obj = self.uow.resources.get_by_id(resource_id)
             if obj is not None:
                 obj.activate()
+                self.uow.resources.update(obj)
+                self.uow.commit()
+            else:
+                self.uow.rollback()
+                raise ResourceNotFound(f'Ресурс не найден в репозитории')
+
+    def deactivate_resource(self, resource_id: UUID) -> None:
+        with self.uow:
+            obj = self.uow.resources.get_by_id(resource_id)
+            if obj is not None:
+                obj.delete()
                 self.uow.resources.update(obj)
                 self.uow.commit()
             else:
